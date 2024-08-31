@@ -1,4 +1,4 @@
-# DiceRoller
+
 # Dice Roller App
 
 ![Dice Roller](https://github.com/allendowling/MssaDiceRoller/blob/main/screenshots/logo3.png) 
@@ -17,7 +17,7 @@
 
 ## Introduction
 
-The Dice Roller App is a .NET-based application designed for Dungeons & Dragons (DnD) and other tabletop role-playing games (RPGs). It allows users to roll various types of dice, view roll history, and engage in multiplayer game sessions using SignalR for real-time interaction(Coming soon).
+The Dice Roller App is a .NET-based application designed for Dungeons & Dragons (DnD) and other tabletop role-playing games (RPGs). It allows users to roll various types of dice, view roll history, and engage in multiplayer game sessions using SignalR for real-time interaction.
 
 ## Features
 
