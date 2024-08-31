@@ -86,4 +86,4 @@ This project is licensed under the BSD 3-Clause "New" or "Revised" License - see
 ## Contact
 
 - **Allen Dowling**: [LinkedIn](www.linkedin.com/in/allen-dowling) | [Email](mailto:allen.dowling@outlook.com)
-- **GitHub**: [https://github.com/allendowling]
+- **GitHub**: [Git](https://github.com/allendowling)
