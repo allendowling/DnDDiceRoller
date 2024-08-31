@@ -24,7 +24,7 @@ The Dice Roller App is a .NET-based application designed for Dungeons & Dragons 
 - **Single and Multi-Dice Rolls**: Roll multiple types of dice at once, with optional modifiers.
 - **Roll History**: View a detailed history of all dice rolls, including individual results.
 - **Multiplayer Support**: Host or join game sessions with other players, all in real-time using SignalR.
-- **Game Lobby**: A dedicated lobby where users can host games, join existing ones, and chat with other players.
+- **Game Lobby**: (coming soon) A dedicated lobby where users can host games, join existing ones, and chat with other players.
 - **Cross-Platform**: Built using .NET MAUI, making it compatible across Windows, macOS, Android, and iOS.
 
 ## Installation
@@ -36,7 +36,7 @@ The Dice Roller App is a .NET-based application designed for Dungeons & Dragons 
 
 ## Usage
 
-### Hosting a Game (Coming in update)
+### Hosting a Game (Coming Soon)
 
 1. Launch the app and enter your username.
 2. Click on "Host Game" and enter a game name.
