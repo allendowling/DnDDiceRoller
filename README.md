@@ -1,4 +1,4 @@
-# MssaDiceRoller
+# DiceRoller
 # Dice Roller App
 
 ![Dice Roller](https://github.com/allendowling/MssaDiceRoller/blob/main/screenshots/logo3.png) 
