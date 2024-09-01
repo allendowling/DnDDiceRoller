@@ -126,7 +126,7 @@ namespace DnDDiceRoller
             _rollHistoryManager.AddRollHistoryItem(rollItem);
 
             // Send the roll over SignalR or other communication methods
-            await _signalRService.SendRoll(_username, total, individualRolls, selectedDice);
+            await _signalRService.SendRoll(_username, total, individualRolls, selectedDice, modifier);
         }
 
         private void ClearDiceButton_Clicked(object sender, EventArgs e)

@@ -24,11 +24,11 @@ public class SignalRService
         await _connection.StartAsync();
     }
 
-    public async Task SendRoll(string user, int total, List<int> individualRolls, Dictionary<int, int> diceUsed)
+    public async Task SendRoll(string user, int total, List<int> individualRolls, Dictionary<int, int> diceUsed, int modifier)
     {
         if (_connection.State == HubConnectionState.Connected)
         {
-            await _connection.InvokeAsync("SendRoll", user, total, individualRolls, diceUsed);
+            await _connection.InvokeAsync("SendRoll", user, total, individualRolls, diceUsed, modifier);
         }
     }
 
