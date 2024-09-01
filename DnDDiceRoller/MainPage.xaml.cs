@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,21 @@ namespace DnDDiceRoller
 {
     public partial class MainPage : ContentPage
     {
+        private DiceRoller diceRoller = new DiceRoller();
         private Dictionary<int, int> selectedDice = new Dictionary<int, int>();
         private SignalRService _signalRService;
         private string _username;
-        private List<RollHistoryItem> rollHistory = new List<RollHistoryItem>();
+        private RollHistoryManager _rollHistoryManager;
 
         public MainPage()
         {
             InitializeComponent();
             _signalRService = new SignalRService();
             _signalRService.RollReceived += SignalRService_RollReceived;
+            _rollHistoryManager = new RollHistoryManager();
+
+            // Bind the CollectionView to the RollHistoryManager's RollHistory collection
+            RollHistoryCollectionView.ItemsSource = _rollHistoryManager.RollHistory;
         }
 
         protected override void OnDisappearing()
@@ -41,7 +47,7 @@ namespace DnDDiceRoller
 
             try
             {
-                await _signalRService.InitializeAsync("https://yourbackend.azurewebsites.net/rollHub");
+                await _signalRService.InitializeAsync("https://dnddicerollerapi20240821154836.azurewebsites.net/rollHub");
             }
             catch (Exception ex)
             {
@@ -87,46 +93,39 @@ namespace DnDDiceRoller
 
         private async void RollButton_Clicked(object sender, EventArgs e)
         {
-            if (!selectedDice.Any())
-            {
-                await DisplayAlert("Error", "Please add some dice before rolling.", "OK");
-                return;
-            }
 
-            int modifier = 0;
-            if (!string.IsNullOrWhiteSpace(ModifierEntry.Text))
-            {
-                if (!int.TryParse(ModifierEntry.Text, out modifier))
-                {
-                    await DisplayAlert("Error", "Please enter a valid modifier.", "OK");
-                    return;
-                }
-            }
+            int modifier = int.TryParse(ModifierEntry.Text, out var mod) ? mod : 0;
 
-            DiceRoller roller = new DiceRoller();
-            List<int> individualRolls = roller.RollMultipleDice(selectedDice);
-            int total = individualRolls.Sum() + modifier;
+            // Roll the dice
+            var individualRolls = diceRoller.RollMultipleDice(selectedDice, modifier);
+            int total = individualRolls.Sum()+modifier;
 
-            // Update local roll history
-            var rollDetails = $"{string.Join(", ", selectedDice.Select(d => $"{d.Value}d{d.Key}"))}";
+            // Build the roll details string
+            string rollDetails = $"{string.Join(", ", individualRolls)}"; ;
             if (modifier != 0)
-                rollDetails += $" + {modifier}";
+                rollDetails += $" + Modifier({modifier})";
+            rollDetails += $" = {total}";
 
+            string diceDetails = $"Dice Used: {string.Join(", ", selectedDice.Select(d => $"{d.Value}d{d.Key}")) }";
+
+            // Combine the roll results and dice used into RollDetails
+            rollDetails += $"\n{diceDetails}";
+
+            // Create a new RollHistoryItem with the details
             var rollItem = new RollHistoryItem
             {
                 User = _username,
                 Total = total,
                 IndividualRolls = individualRolls,
-                RollDetails = $"{rollDetails} = {total}",
+                RollDetails = rollDetails, // This includes everything
                 Timestamp = DateTime.Now.ToString("g"),
-                DiceUsed = selectedDice // Store the dice used
+                DiceUsed = selectedDice // Still keep this for future use
             };
 
-            rollHistory.Insert(0, rollItem);
-            RollHistoryCollectionView.ItemsSource = null;
-            RollHistoryCollectionView.ItemsSource = rollHistory;
+            // Add the item to the roll history
+            _rollHistoryManager.AddRollHistoryItem(rollItem);
 
-            // Send roll and dice information to other users via SignalR
+            // Send the roll over SignalR or other communication methods
             await _signalRService.SendRoll(_username, total, individualRolls, selectedDice);
         }
 
@@ -138,39 +137,34 @@ namespace DnDDiceRoller
         }
 
         private void SignalRService_RollReceived(object sender, RollEventArgs e)
-{
-    if (e.User == _username)
-        return; // Ignore own rolls
-
-    var rollDetails = $"Rolls: {string.Join(", ", e.IndividualRolls)} = {e.Total}";
-    var diceDetails = $"Dice Used: {string.Join(", ", e.DiceUsed.Select(d => $"{d.Value}d{d.Key}"))}";
-
-    var rollItem = new RollHistoryItem
-    {
-        User = e.User,
-        Total = e.Total,
-        IndividualRolls = e.IndividualRolls,
-        RollDetails = rollDetails,
-        Timestamp = DateTime.Now.ToString("g"),
-        DiceUsed = e.DiceUsed  // Assign the DiceUsed property
-    };
-
-    Device.BeginInvokeOnMainThread(() =>
-    {
-        rollHistory.Insert(0, rollItem);
-        RollHistoryCollectionView.ItemsSource = null;
-        RollHistoryCollectionView.ItemsSource = rollHistory;
-        DisplayAlert("New Roll", $"{e.User} rolled:\n{rollDetails}\n{diceDetails}", "OK");
-    });
-}
-        public class RollHistoryItem
         {
-            public string User { get; set; }
-            public int Total { get; set; }
-            public List<int> IndividualRolls { get; set; }
-            public string RollDetails { get; set; }
-            public string Timestamp { get; set; }
-            public Dictionary<int, int> DiceUsed { get; internal set; }
+            if (e.User == _username)
+                return; // Ignore own rolls
+
+            var rollDetails = $"Rolls: {string.Join(", ", e.IndividualRolls)}";
+            rollDetails += $" = {e.Total}"; // Show the total result
+
+            // Add the dice used information
+            string diceDetails = $"Dice Used: {string.Join(", ", e.DiceUsed.Select(d => $"{d.Value}d{d.Key}"))}";
+
+            // Combine the roll results and dice used into RollDetails
+            rollDetails += $"\n{diceDetails}";
+
+            var rollItem = new RollHistoryItem
+            {
+                User = e.User,
+                Total = e.Total,
+                IndividualRolls = e.IndividualRolls,
+                RollDetails = rollDetails,
+                Timestamp = DateTime.Now.ToString("g"),
+                DiceUsed = e.DiceUsed  // Assign the DiceUsed property
+            };
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                _rollHistoryManager.AddRollHistoryItem(rollItem);
+                DisplayAlert("New Roll", $"{e.User} rolled:\n{rollDetails}", "OK");
+            });
         }
     }
 }

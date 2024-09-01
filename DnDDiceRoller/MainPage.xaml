@@ -15,7 +15,7 @@
 
 
         <StackLayout x:Name="MainAppSection" IsVisible="False">
-            <!-- Dice Selection Area -->
+            <!-- Dice Selection Area -->            
             <Label Text="Select Dice Type and Quantity" FontSize="20" FontAttributes="Bold" />
             <Picker x:Name="DiceTypePicker" Title="Select Dice Type">
                 <Picker.Items>
@@ -60,8 +60,6 @@
                             <StackLayout>
                                 <Label Text="{Binding User}" FontSize="16" FontAttributes="Bold" />
                                 <Label Text="{Binding RollDetails}" FontSize="14" />
-                                <Label Text="{Binding DiceDetails}" FontSize="14" />
-                                <!-- Display dice used -->
                                 <Label Text="{Binding Timestamp}" FontSize="12" TextColor="Gray" />
                             </StackLayout>
                         </Frame>

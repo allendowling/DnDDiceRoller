@@ -8,7 +8,7 @@
     Title="DnDDiceRoller">
 
     <ShellContent
-        Title="Home"
+        Title="MSSA Project"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
