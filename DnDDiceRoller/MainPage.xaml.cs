@@ -41,7 +41,7 @@ namespace DnDDiceRoller
 
             try
             {
-                await _signalRService.InitializeAsync("https://yourbackend.azurewebsites.net/rollHub");
+                await _signalRService.InitializeAsync("https://dnddicerollerapi20240821154836.azurewebsites.net/rollHub");
             }
             catch (Exception ex)
             {
