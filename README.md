@@ -56,7 +56,7 @@ The Dice Roller App is a .NET-based application designed for Dungeons & Dragons 
 
 ## Screenshots
 
-![Screenshot 1](https://github.com/allendowling/MssaDiceRoller/blob/main/gif/DiceRollgif.gif)
+![Screenshot 1](https://github.com/allendowling/DnDDiceRoller/blob/master/gif/DiceRollgif.gif))
 
 
 
