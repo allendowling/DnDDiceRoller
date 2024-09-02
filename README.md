@@ -1,7 +1,7 @@
 
 # Dice Roller App
 
-![Dice Roller](https://github.com/allendowling/MssaDiceRoller/blob/main/screenshots/logo3.png) 
+![Dice Roller](https://github.com/allendowling/DnDDiceRoller/blob/master/screenshot/logo3%20(1).png) 
 
 ## Table of Contents
 
