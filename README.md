@@ -31,7 +31,7 @@ The Dice Roller App is a .NET-based application designed for Dungeons & Dragons 
 
 ### Prerequisites
 
-- [.NET 6.0 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+- [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - A compatible IDE such as [Visual Studio 2022](https://visualstudio.microsoft.com/) with .NET MAUI workload installed
 
 ## Usage
