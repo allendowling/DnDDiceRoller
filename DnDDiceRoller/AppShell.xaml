@@ -4,12 +4,21 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DnDDiceRoller"
-    Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarIsVisible="False"
+    Shell.FlyoutBehavior="Flyout"
     Title="DnDDiceRoller">
 
-    <ShellContent
-        Title="MSSA Project"
+    <FlyoutItem Title="Menu" FlyoutDisplayOptions="AsMultipleItems">
+
+        <ShellContent
+        Title="Dice Roller"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+        <ShellContent
+            Title="User Stats"
+            ContentTemplate="{DataTemplate local:UserStatsPage}"
+            Route="UserStatsPage" />
+    </FlyoutItem>
 
 </Shell>
