@@ -11,11 +11,10 @@ namespace DnDDiceRoller
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
-                .UseMauiCommunityToolkit()
-                .UseMauiCommunityToolkitCore()
+                .UseMauiCommunityToolkit()           
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("FantasyFont.ttf.otf", "FantasyFont");
+                    fonts.AddFont("FantasyFont.ttf", "FantasyFont");
                     
                 });
 

@@ -61,67 +61,144 @@
                         <!-- Row 14 -->
                     </Grid.RowDefinitions>
 
-                    <!-- Character Name -->
-                    <Label Text="Character Name" FontSize="20" FontFamily="FantasyFont" Grid.Row="0" Grid.Column="0" />
-                    <Entry x:Name="CharacterNameEntry" FontFamily="FantasyFont" Placeholder="Enter Name" Grid.Row="0" Grid.Column="1" />
+                    <!-- Character Name Frame -->
+                    <Frame CornerRadius="10" BorderColor="#344e41" HasShadow="False" Padding="10" BackgroundColor="#344e41" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <Frame BorderColor="#344e41" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
 
-                    <!-- Race -->
-                    <Label Text="Race" FontSize="20" FontFamily="FantasyFont" Grid.Row="1" Grid.Column="0" />
-                    <Entry x:Name="RaceEntry" FontFamily="FantasyFont" Placeholder="Enter Race" Grid.Row="1" Grid.Column="1" />
+                            <StackLayout>
+                                <!-- Section Label -->
+                                <Label Text="Character Info" FontSize="26" FontFamily="FantasyFont" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                <!-- Existing Grid -->
+                                <Grid ColumnSpacing="10" RowSpacing="10">
+                                    <!-- Column Definitions -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Row Definitions for Character Name -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 0 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 1 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 2 -->
+                                    </Grid.RowDefinitions>
+                                    <!-- Character Name -->
+                                    <Label Text="Character Name" FontSize="20" FontFamily="FantasyFont" Grid.Row="0" Grid.Column="0" />
+                                    <Entry x:Name="CharacterNameEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Name" Grid.Row="0" Grid.Column="1" />
+                                    <!-- Race -->
+                                    <Label Text="Race" FontSize="20" FontFamily="FantasyFont" Grid.Row="1" Grid.Column="0" />
+                                    <Entry x:Name="RaceEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Race" Grid.Row="1" Grid.Column="1" />
+                                    <!-- Class -->
+                                    <Label Text="Class" FontSize="20" FontFamily="FantasyFont" Grid.Row="2" Grid.Column="0" />
+                                    <Entry x:Name="ClassEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Class" Grid.Row="2" Grid.Column="1" />
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                    </Frame>
 
-                    <!-- Class -->
-                    <Label Text="Class" FontSize="20" FontFamily="FantasyFont" Grid.Row="2" Grid.Column="0" />
-                    <Entry x:Name="ClassEntry" FontFamily="FantasyFont" Placeholder="Enter Class" Grid.Row="2" Grid.Column="1" />
+                    <!-- Attributes Section Frame -->
+                    <Frame CornerRadius="10" BorderColor="#588157" HasShadow="False" Padding="10" BackgroundColor="#588157" Grid.Row="3" Grid.RowSpan="6" Grid.ColumnSpan="2">
+                        <Frame BorderColor="#588157" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+                            <StackLayout>
+                                <!-- Section Label -->
+                                <Label Text="Base Stats" FontSize="26" FontFamily="FantasyFont" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                <!-- Existing Grid -->
+                                <Grid ColumnSpacing="10" RowSpacing="10">
+                                    <!-- Column Definitions -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Row Definitions for Attributes -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 0 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 1 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 2 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 3 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 4 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 5 -->
+                                    </Grid.RowDefinitions>
+                                    <!-- Strength -->
+                                    <Label Text="Strength" FontSize="20" FontFamily="FantasyFont" Grid.Row="0" Grid.Column="0" />
+                                    <Entry x:Name="StrengthEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Strength" Keyboard="Numeric" Grid.Row="0" Grid.Column="1" />
+                                    <!-- Dexterity -->
+                                    <Label Text="Dexterity" FontSize="20" FontFamily="FantasyFont" Grid.Row="1" Grid.Column="0" />
+                                    <Entry x:Name="DexterityEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Dexterity" Keyboard="Numeric" Grid.Row="1" Grid.Column="1" />
+                                    <!-- Constitution -->
+                                    <Label Text="Constitution" FontSize="20" FontFamily="FantasyFont" Grid.Row="2" Grid.Column="0" />
+                                    <Entry x:Name="ConstitutionEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Constitution" Keyboard="Numeric" Grid.Row="2" Grid.Column="1" />
+                                    <!-- Intelligence -->
+                                    <Label Text="Intelligence" FontSize="20" FontFamily="FantasyFont" Grid.Row="3" Grid.Column="0" />
+                                    <Entry x:Name="IntelligenceEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Intelligence" Keyboard="Numeric" Grid.Row="3" Grid.Column="1" />
+                                    <!-- Wisdom -->
+                                    <Label Text="Wisdom" FontSize="20" FontFamily="FantasyFont" Grid.Row="4" Grid.Column="0" />
+                                    <Entry x:Name="WisdomEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Wisdom" Keyboard="Numeric" Grid.Row="4" Grid.Column="1" />
+                                    <!-- Charisma -->
+                                    <Label Text="Charisma" FontSize="20" FontFamily="FantasyFont" Grid.Row="5" Grid.Column="0" />
+                                    <Entry x:Name="CharismaEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Charisma" Keyboard="Numeric" Grid.Row="5" Grid.Column="1" />
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                    </Frame>
 
-                    <!-- Attributes Section -->
-                    <!-- Strength -->
-                    <Label Text="Strength" FontSize="20" FontFamily="FantasyFont" Grid.Row="3" Grid.Column="0" />
-                    <Entry x:Name="StrengthEntry" FontFamily="FantasyFont" Placeholder="Enter Strength" Keyboard="Numeric" Grid.Row="3" Grid.Column="1" />
-
-                    <!-- Dexterity -->
-                    <Label Text="Dexterity" FontSize="20" FontFamily="FantasyFont" Grid.Row="4" Grid.Column="0" />
-                    <Entry x:Name="DexterityEntry" FontFamily="FantasyFont" Placeholder="Enter Dexterity" Keyboard="Numeric" Grid.Row="4" Grid.Column="1" />
-
-                    <!-- Constitution -->
-                    <Label Text="Constitution" FontSize="20" FontFamily="FantasyFont" Grid.Row="5" Grid.Column="0" />
-                    <Entry x:Name="ConstitutionEntry" FontFamily="FantasyFont" Placeholder="Enter Constitution" Keyboard="Numeric" Grid.Row="5" Grid.Column="1" />
-
-                    <!-- Intelligence -->
-                    <Label Text="Intelligence" FontSize="20" FontFamily="FantasyFont" Grid.Row="6" Grid.Column="0" />
-                    <Entry x:Name="IntelligenceEntry" FontFamily="FantasyFont" Placeholder="Enter Intelligence" Keyboard="Numeric" Grid.Row="6" Grid.Column="1" />
-
-                    <!-- Wisdom -->
-                    <Label Text="Wisdom" FontSize="20" FontFamily="FantasyFont" Grid.Row="7" Grid.Column="0" />
-                    <Entry x:Name="WisdomEntry" FontFamily="FantasyFont" Placeholder="Enter Wisdom" Keyboard="Numeric" Grid.Row="7" Grid.Column="1" />
-
-                    <!-- Charisma -->
-                    <Label Text="Charisma" FontSize="20" FontFamily="FantasyFont" Grid.Row="8" Grid.Column="0" />
-                    <Entry x:Name="CharismaEntry" FontFamily="FantasyFont" Placeholder="Enter Charisma" Keyboard="Numeric" Grid.Row="8" Grid.Column="1" />
-
-                    <!-- Combat Stats Section -->
-                    <!-- Armor Class -->
-                    <Label Text="Armor Class" FontSize="20" FontFamily="FantasyFont" Grid.Row="9" Grid.Column="0" />
-                    <Entry x:Name="ArmorClassEntry" FontFamily="FantasyFont" Placeholder="Enter AC" Keyboard="Numeric" Grid.Row="9" Grid.Column="1" />
-
-                    <!-- Hit Points -->
-                    <Label Text="Hit Points" FontSize="20" FontFamily="FantasyFont" Grid.Row="10" Grid.Column="0" />
-                    <Entry x:Name="HitPointsEntry" FontFamily="FantasyFont" Placeholder="Enter HP" Keyboard="Numeric" Grid.Row="10" Grid.Column="1" />
-
-                    <!-- Proficiency Bonus -->
-                    <Label Text="Proficiency Bonus" FontSize="20" FontFamily="FantasyFont" Grid.Row="11" Grid.Column="0" />
-                    <Entry x:Name="ProficiencyBonusEntry" FontFamily="FantasyFont" Placeholder="Enter Proficiency Bonus" Keyboard="Numeric" Grid.Row="11" Grid.Column="1" />
-
-                    <!-- Initiative -->
-                    <Label Text="Initiative" FontSize="20" FontFamily="FantasyFont" Grid.Row="12" Grid.Column="0" />
-                    <Entry x:Name="InitiativeEntry" FontFamily="FantasyFont" Placeholder="Enter Initiative" Keyboard="Numeric" Grid.Row="12" Grid.Column="1" />
-
-                    <!-- Speed -->
-                    <Label Text="Speed" FontSize="20" FontFamily="FantasyFont" Grid.Row="13" Grid.Column="0" />
-                    <Entry x:Name="SpeedEntry" FontFamily="FantasyFont" Placeholder="Enter Speed" Keyboard="Numeric" Grid.Row="13" Grid.Column="1" />
-
-                    <!-- Experience Points -->
-                    <Label Text="Experience Points" FontSize="20" FontFamily="FantasyFont" Grid.Row="14" Grid.Column="0" />
-                    <Entry x:Name="ExperienceEntry" FontFamily="FantasyFont" Placeholder="Enter XP" Keyboard="Numeric" Grid.Row="14" Grid.Column="1" />
+                    <!-- Combat Stats Section Frame -->
+                    <Frame CornerRadius="10" BorderColor="#dad7cd" HasShadow="False" Padding="10" BackgroundColor="#dad7cd" Grid.Row="9" Grid.RowSpan="6" Grid.ColumnSpan="2">
+                        <Frame BorderColor="#dad7cd" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+                            <StackLayout>
+                                <!-- Section Label -->
+                                <Label Text="Combat Stats" FontSize="26" FontFamily="FantasyFont" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                <!-- Existing Grid -->
+                                <Grid ColumnSpacing="10" RowSpacing="10">
+                                    <!-- Column Definitions -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Row Definitions for Combat Stats -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 0 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 1 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 2 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 3 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 4 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 5 -->
+                                    </Grid.RowDefinitions>
+                                    <!-- Armor Class -->
+                                    <Label Text="Armor Class" FontSize="20" FontFamily="FantasyFont" Grid.Row="0" Grid.Column="0" />
+                                    <Entry x:Name="ArmorClassEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter AC" Keyboard="Numeric" Grid.Row="0" Grid.Column="1" />
+                                    <!-- Hit Points -->
+                                    <Label Text="Hit Points" FontSize="20" FontFamily="FantasyFont" Grid.Row="1" Grid.Column="0" />
+                                    <Entry x:Name="HitPointsEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter HP" Keyboard="Numeric" Grid.Row="1" Grid.Column="1" />
+                                    <!-- Proficiency Bonus -->
+                                    <Label Text="Proficiency Bonus" FontSize="20" FontFamily="FantasyFont" Grid.Row="2" Grid.Column="0" />
+                                    <Entry x:Name="ProficiencyBonusEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Proficiency Bonus" Keyboard="Numeric" Grid.Row="2" Grid.Column="1" />
+                                    <!-- Initiative -->
+                                    <Label Text="Initiative" FontSize="20" FontFamily="FantasyFont" Grid.Row="3" Grid.Column="0" />
+                                    <Entry x:Name="InitiativeEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Initiative" Keyboard="Numeric" Grid.Row="3" Grid.Column="1" />
+                                    <!-- Speed -->
+                                    <Label Text="Speed" FontSize="20" FontFamily="FantasyFont" Grid.Row="4" Grid.Column="0" />
+                                    <Entry x:Name="SpeedEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Speed" Keyboard="Numeric" Grid.Row="4" Grid.Column="1" />
+                                    <!-- Experience Points -->
+                                    <Label Text="Experience Points" FontSize="20" FontFamily="FantasyFont" Grid.Row="5" Grid.Column="0" />
+                                    <Entry x:Name="ExperienceEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter XP" Keyboard="Numeric" Grid.Row="5" Grid.Column="1" />
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                    </Frame>
                 </Grid>
             </StackLayout>
         </ScrollView>
@@ -149,7 +226,9 @@
                              Aspect="AspectFit"
                              HeightRequest="40"
                              WidthRequest="40"
-                             />
+                             Pressed="OnImageButtonPressed"
+                             Released="OnImageButtonReleased"/>
+                             
 
                 <!-- Load Icon -->
                 <ImageButton Source="load_icon.png"
@@ -161,7 +240,9 @@
                              Aspect="AspectFit"
                              HeightRequest="40"
                              WidthRequest="40"
-                             />
+                             Pressed="OnImageButtonPressed"
+                             Released="OnImageButtonReleased"/>
+                             
 
 
                 <!-- Delete Icon -->
@@ -173,8 +254,10 @@
                              VerticalOptions="Center"
                              Aspect="AspectFit"
                              HeightRequest="40"
-                             WidthRequest="40"
-                             />
+                             WidthRequest="40" 
+                             Pressed="OnImageButtonPressed"
+                             Released="OnImageButtonReleased"/>
+                            
 
                 <!-- Clear Icon -->
                 <ImageButton Source="clear_icon.png"
@@ -186,7 +269,9 @@
                              Aspect="AspectFit"
                              HeightRequest="40"
                              WidthRequest="40"
-                             />
+                             Pressed="OnImageButtonPressed"
+                             Released="OnImageButtonReleased"/>
+                             
             </Grid>
         </StackLayout>
     </Grid>

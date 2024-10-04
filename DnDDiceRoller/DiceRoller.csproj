@@ -68,9 +68,9 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\clear_icon.png" />
 	  <None Remove="Resources\Images\delete_icon.png" />
-	  <None Remove="Resources\Images\dungeon_background.jpg" />
 	  <None Remove="Resources\Images\load_icon.png" />
 	  <None Remove="Resources\Images\save_icon.png" />
+	  <None Remove="Resources\Images\splashscreen.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -86,13 +86,19 @@
 	  <MauiXaml Update="DiceSelectionPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="QuickReferencePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="SplashPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UserStatsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
-
+	
 	<ItemGroup>
 	  <Folder Include="View\" />
 	</ItemGroup>
 
-</Project>
+	</Project>

@@ -19,6 +19,12 @@
             Title="User Stats"
             ContentTemplate="{DataTemplate local:UserStatsPage}"
             Route="UserStatsPage" />
+
+        <ShellContent
+            Title="Quick Reference"
+            ContentTemplate="{DataTemplate local:QuickReferencePage}"
+            Route="QuickReferencePage" />
+
     </FlyoutItem>
 
 </Shell>

@@ -153,12 +153,23 @@ public partial class UserStatsPage : ContentPage
         //await button.ScaleTo(1, 50, Easing.CubicIn);
         await DeleteCharacterStatsAsync();
     }
-    private async void OnClearStatsClicked(object sender, EventArgs e)
+    private void OnClearStatsClicked(object sender, EventArgs e)
     {
         //Button button = (Button)sender;
         //await button.ScaleTo(0.9, 50, Easing.CubicOut);
         //await button.ScaleTo(1, 50, Easing.CubicIn);
         ClearCharacterStats();
+    }
+    private async void OnImageButtonPressed(object sender, EventArgs e)
+    {
+        var imageButton = sender as ImageButton;
+        await imageButton.ScaleTo(0.9, 50);
+    }
+
+    private async void OnImageButtonReleased(object sender, EventArgs e)
+    {
+        var imageButton = sender as ImageButton;
+        await imageButton.ScaleTo(1, 50);
     }
 }
 

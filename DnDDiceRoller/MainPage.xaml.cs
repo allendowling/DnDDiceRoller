@@ -119,8 +119,8 @@ namespace DnDDiceRoller
             int modifier = int.TryParse(ModifierEntry.Text, out var mod) ? mod : 0;
 
             // Roll the dice
-            var individualRolls = diceRoller.RollMultipleDice(selectedDice, modifier);
-            int total = individualRolls.Sum()+modifier;
+            var (individualRolls, total) = diceRoller.RollMultipleDice(selectedDice, modifier);
+            //int total = individualRolls.Sum()+modifier;
 
             // Build the roll details string
             string rollDetails = $"{string.Join(", ", individualRolls)}"; ;
@@ -147,6 +147,9 @@ namespace DnDDiceRoller
             // Add the item to the roll history
             _rollHistoryManager.AddRollHistoryItem(rollItem);
 
+            // Scroll to the top of the roll history
+            RollHistoryCollectionView.ScrollTo(0, position: ScrollToPosition.Start, animate: false);
+
             // Send the roll over SignalR or other communication methods
             await _signalRService.SendRoll(_username, total, individualRolls, selectedDice, modifier);
         }
@@ -171,6 +174,8 @@ namespace DnDDiceRoller
                 return; // Ignore own rolls
             // Build the roll details string
             var rollDetails = $"Rolls: {string.Join(", ", e.IndividualRolls)}";
+            if (e.Modifier != 0)
+            rollDetails += $" + Modifier({e.Modifier})";
             rollDetails += $" = {e.Total}"; // Show the total result
 
             // Add the dice used information
@@ -192,6 +197,9 @@ namespace DnDDiceRoller
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 _rollHistoryManager.AddRollHistoryItem(rollItem);
+                // Scroll to the top of the roll history
+                RollHistoryCollectionView.ScrollTo(0, position: ScrollToPosition.Start, animate: false);
+                // Show an alert with the new roll details
                 DisplayAlert("New Roll", $"{e.User} rolled:\n{rollDetails}", "OK");
             });
 
