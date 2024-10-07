@@ -16,19 +16,19 @@ public class SignalRService
             .WithAutomaticReconnect()
             .Build();
 
-        _connection.On<string, int, List<int>, Dictionary<int, int>>("ReceiveRoll", (user, total, individualRolls, diceUsed) =>
+        _connection.On<string, int, List<int>, Dictionary<int, int>, int>("ReceiveRoll", (user, total, individualRolls, diceUsed, modifier) =>
         {
-            RollReceived?.Invoke(this, new RollEventArgs(user, total, individualRolls, diceUsed));
+            RollReceived?.Invoke(this, new RollEventArgs(user, total, individualRolls, diceUsed, modifier));
         });
 
         await _connection.StartAsync();
     }
 
-    public async Task SendRoll(string user, int total, List<int> individualRolls, Dictionary<int, int> diceUsed)
+    public async Task SendRoll(string user, int total, List<int> individualRolls, Dictionary<int, int> diceUsed, int modifier)
     {
         if (_connection.State == HubConnectionState.Connected)
         {
-            await _connection.InvokeAsync("SendRoll", user, total, individualRolls, diceUsed);
+            await _connection.InvokeAsync("SendRoll", user, total, individualRolls, diceUsed, modifier);
         }
     }
 
@@ -44,16 +44,18 @@ public class SignalRService
 
 public class RollEventArgs : EventArgs
 {
-    public string User { get; }
-    public int Total { get; }
-    public List<int> IndividualRolls { get; }
-    public Dictionary<int, int> DiceUsed { get; }
+    public string User { get; set; }
+    public int Total { get; set; }
+    public List<int> IndividualRolls { get; set; }
+    public Dictionary<int, int> DiceUsed { get; set; }
+    public int Modifier { get; set; }
 
-    public RollEventArgs(string user, int total, List<int> individualRolls, Dictionary<int, int> diceUsed)
+    public RollEventArgs(string user, int total, List<int> individualRolls, Dictionary<int, int> diceUsed, int modifier)
     {
         User = user;
         Total = total;
         IndividualRolls = individualRolls;
         DiceUsed = diceUsed;
+        Modifier = modifier;
     }
-}
+} 

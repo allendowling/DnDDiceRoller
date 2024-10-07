@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DnDDiceRoller.UserStatsPage"
+    Title="Character Sheet">
+
+    <!-- Main Grid Layout -->
+    <Grid>
+        <!-- Define Rows: One for content, one for buttons -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <!-- Scrolling content -->
+            <RowDefinition Height="Auto" />
+            <!-- Fixed buttons at bottom -->
+        </Grid.RowDefinitions>
+
+        <!-- Scrollable Content -->
+        <ScrollView Grid.Row="0">
+            <StackLayout Padding="20" Spacing="10">
+                <!-- Character Info Section -->
+                <Grid ColumnSpacing="10" RowSpacing="10">
+                    <!-- Column Definitions -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Row Definitions -->
+                    <Grid.RowDefinitions>
+                        <!-- Add RowDefinitions for each row -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 0 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 1 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 2 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 3 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 4 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 5 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 6 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 7 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 8 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 9 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 10 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 11 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 12 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 13 -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row 14 -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Character Name Frame -->
+                    <Frame CornerRadius="10" BorderColor="#344e41" HasShadow="False" Padding="10" BackgroundColor="#344e41" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <Frame BorderColor="#344e41" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+
+                            <StackLayout>
+                                <!-- Section Label -->
+                                <Label Text="Character Info" FontSize="26" FontFamily="FantasyFont" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                <!-- Existing Grid -->
+                                <Grid ColumnSpacing="10" RowSpacing="10">
+                                    <!-- Column Definitions -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Row Definitions for Character Name -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 0 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 1 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 2 -->
+                                    </Grid.RowDefinitions>
+                                    <!-- Character Name -->
+                                    <Label Text="Character Name" FontSize="20" FontFamily="FantasyFont" Grid.Row="0" Grid.Column="0" />
+                                    <Entry x:Name="CharacterNameEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Name" Grid.Row="0" Grid.Column="1" />
+                                    <!-- Race -->
+                                    <Label Text="Race" FontSize="20" FontFamily="FantasyFont" Grid.Row="1" Grid.Column="0" />
+                                    <Entry x:Name="RaceEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Race" Grid.Row="1" Grid.Column="1" />
+                                    <!-- Class -->
+                                    <Label Text="Class" FontSize="20" FontFamily="FantasyFont" Grid.Row="2" Grid.Column="0" />
+                                    <Entry x:Name="ClassEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Class" Grid.Row="2" Grid.Column="1" />
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                    </Frame>
+
+                    <!-- Attributes Section Frame -->
+                    <Frame CornerRadius="10" BorderColor="#588157" HasShadow="False" Padding="10" BackgroundColor="#588157" Grid.Row="3" Grid.RowSpan="6" Grid.ColumnSpan="2">
+                        <Frame BorderColor="#588157" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+                            <StackLayout>
+                                <!-- Section Label -->
+                                <Label Text="Base Stats" FontSize="26" FontFamily="FantasyFont" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                <!-- Existing Grid -->
+                                <Grid ColumnSpacing="10" RowSpacing="10">
+                                    <!-- Column Definitions -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Row Definitions for Attributes -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 0 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 1 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 2 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 3 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 4 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 5 -->
+                                    </Grid.RowDefinitions>
+                                    <!-- Strength -->
+                                    <Label Text="Strength" FontSize="20" FontFamily="FantasyFont" Grid.Row="0" Grid.Column="0" />
+                                    <Entry x:Name="StrengthEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Strength" Keyboard="Numeric" Grid.Row="0" Grid.Column="1" />
+                                    <!-- Dexterity -->
+                                    <Label Text="Dexterity" FontSize="20" FontFamily="FantasyFont" Grid.Row="1" Grid.Column="0" />
+                                    <Entry x:Name="DexterityEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Dexterity" Keyboard="Numeric" Grid.Row="1" Grid.Column="1" />
+                                    <!-- Constitution -->
+                                    <Label Text="Constitution" FontSize="20" FontFamily="FantasyFont" Grid.Row="2" Grid.Column="0" />
+                                    <Entry x:Name="ConstitutionEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Constitution" Keyboard="Numeric" Grid.Row="2" Grid.Column="1" />
+                                    <!-- Intelligence -->
+                                    <Label Text="Intelligence" FontSize="20" FontFamily="FantasyFont" Grid.Row="3" Grid.Column="0" />
+                                    <Entry x:Name="IntelligenceEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Intelligence" Keyboard="Numeric" Grid.Row="3" Grid.Column="1" />
+                                    <!-- Wisdom -->
+                                    <Label Text="Wisdom" FontSize="20" FontFamily="FantasyFont" Grid.Row="4" Grid.Column="0" />
+                                    <Entry x:Name="WisdomEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Wisdom" Keyboard="Numeric" Grid.Row="4" Grid.Column="1" />
+                                    <!-- Charisma -->
+                                    <Label Text="Charisma" FontSize="20" FontFamily="FantasyFont" Grid.Row="5" Grid.Column="0" />
+                                    <Entry x:Name="CharismaEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Charisma" Keyboard="Numeric" Grid.Row="5" Grid.Column="1" />
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                    </Frame>
+
+                    <!-- Combat Stats Section Frame -->
+                    <Frame CornerRadius="10" BorderColor="#dad7cd" HasShadow="False" Padding="10" BackgroundColor="#dad7cd" Grid.Row="9" Grid.RowSpan="6" Grid.ColumnSpan="2">
+                        <Frame BorderColor="#dad7cd" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+                            <StackLayout>
+                                <!-- Section Label -->
+                                <Label Text="Combat Stats" FontSize="26" FontFamily="FantasyFont" HorizontalOptions="Center" Margin="0,0,0,10" />
+                                <!-- Existing Grid -->
+                                <Grid ColumnSpacing="10" RowSpacing="10">
+                                    <!-- Column Definitions -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Row Definitions for Combat Stats -->
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 0 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 1 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 2 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 3 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 4 -->
+                                        <RowDefinition Height="Auto" />
+                                        <!-- Row 5 -->
+                                    </Grid.RowDefinitions>
+                                    <!-- Armor Class -->
+                                    <Label Text="Armor Class" FontSize="20" FontFamily="FantasyFont" Grid.Row="0" Grid.Column="0" />
+                                    <Entry x:Name="ArmorClassEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter AC" Keyboard="Numeric" Grid.Row="0" Grid.Column="1" />
+                                    <!-- Hit Points -->
+                                    <Label Text="Hit Points" FontSize="20" FontFamily="FantasyFont" Grid.Row="1" Grid.Column="0" />
+                                    <Entry x:Name="HitPointsEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter HP" Keyboard="Numeric" Grid.Row="1" Grid.Column="1" />
+                                    <!-- Proficiency Bonus -->
+                                    <Label Text="Proficiency Bonus" FontSize="20" FontFamily="FantasyFont" Grid.Row="2" Grid.Column="0" />
+                                    <Entry x:Name="ProficiencyBonusEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Proficiency Bonus" Keyboard="Numeric" Grid.Row="2" Grid.Column="1" />
+                                    <!-- Initiative -->
+                                    <Label Text="Initiative" FontSize="20" FontFamily="FantasyFont" Grid.Row="3" Grid.Column="0" />
+                                    <Entry x:Name="InitiativeEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Initiative" Keyboard="Numeric" Grid.Row="3" Grid.Column="1" />
+                                    <!-- Speed -->
+                                    <Label Text="Speed" FontSize="20" FontFamily="FantasyFont" Grid.Row="4" Grid.Column="0" />
+                                    <Entry x:Name="SpeedEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter Speed" Keyboard="Numeric" Grid.Row="4" Grid.Column="1" />
+                                    <!-- Experience Points -->
+                                    <Label Text="Experience Points" FontSize="20" FontFamily="FantasyFont" Grid.Row="5" Grid.Column="0" />
+                                    <Entry x:Name="ExperienceEntry" FontFamily="FantasyFont" FontSize="18" Placeholder="Enter XP" Keyboard="Numeric" Grid.Row="5" Grid.Column="1" />
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                    </Frame>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+
+        <StackLayout Grid.Row="1" Spacing="0">
+            <!-- Optional Separator Line -->
+            <BoxView HeightRequest="1" BackgroundColor="Gray" />
+
+            <!-- Buttons Container with Background Color -->
+            <Grid ColumnSpacing="10" Padding="10" BackgroundColor="#F0F0F0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Save Icon -->
+                <ImageButton Source="save_icon.png"
+                             Clicked="OnSaveStatsClicked"
+                             BackgroundColor="Transparent"
+                             Grid.Column="0"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Aspect="AspectFit"
+                             HeightRequest="40"
+                             WidthRequest="40"
+                             Pressed="OnImageButtonPressed"
+                             Released="OnImageButtonReleased"/>
+                             
+
+                <!-- Load Icon -->
+                <ImageButton Source="load_icon.png"
+                             Clicked="OnLoadStatsClicked"
+                             BackgroundColor="Transparent"
+                             Grid.Column="1"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Aspect="AspectFit"
+                             HeightRequest="40"
+                             WidthRequest="40"
+                             Pressed="OnImageButtonPressed"
+                             Released="OnImageButtonReleased"/>
+                             
+
+
+                <!-- Delete Icon -->
+                <ImageButton Source="delete_icon.png"
+                             Clicked="OnDeleteStatsClicked"
+                             BackgroundColor="Transparent"
+                             Grid.Column="2"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Aspect="AspectFit"
+                             HeightRequest="40"
+                             WidthRequest="40" 
+                             Pressed="OnImageButtonPressed"
+                             Released="OnImageButtonReleased"/>
+                            
+
+                <!-- Clear Icon -->
+                <ImageButton Source="clear_icon.png"
+                             Clicked="OnClearStatsClicked"
+                             BackgroundColor="Transparent"
+                             Grid.Column="3"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Aspect="AspectFit"
+                             HeightRequest="40"
+                             WidthRequest="40"
+                             Pressed="OnImageButtonPressed"
+                             Released="OnImageButtonReleased"/>
+                             
+            </Grid>
+        </StackLayout>
+    </Grid>
+</ContentPage>

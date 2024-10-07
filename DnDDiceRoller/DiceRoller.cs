@@ -5,18 +5,20 @@ namespace DnDDiceRoller
 {
     public class DiceRoller
     {
+        // Random number generator
         private static readonly Random random = new Random();
 
         // Method to roll a single die
         private int RollDie(int sides)
         {
             return random.Next(1, sides + 1);
-        }
+        }//do not touch yet!, needs update to display on current users indiviual rolls with multiple dice. 
 
-        // Method to roll multiple dice of different types and return individual results with a modifier
-        public List<int> RollMultipleDice(Dictionary<int, int> diceTypes, int modifier = 0)
+        //
+        public (List<int> IndividualRolls, int Total) RollMultipleDice(Dictionary<int, int> diceTypes, int modifier = 0)
         {
             List<int> results = new List<int>();
+            int total = 0;
 
             foreach (var diceType in diceTypes)
             {
@@ -25,12 +27,16 @@ namespace DnDDiceRoller
 
                 for (int i = 0; i < numberOfDice; i++)
                 {
-                    int rollResult = RollDie(sides) + modifier;  // Apply the modifier to each roll
+                    int rollResult = RollDie(sides);
                     results.Add(rollResult);
+                    total += rollResult;
                 }
             }
 
-            return results;
+            // Add the modifier to the total
+            total += modifier;
+
+            return (results, total);
         }
     }
 }

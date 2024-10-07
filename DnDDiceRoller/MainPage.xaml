@@ -1,73 +1,94 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DnDDiceRoller.MainPage">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="DnDDiceRoller.MainPage">
 
-    <StackLayout Padding="10">
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
         <!-- User Login Section -->
-        <StackLayout x:Name="LoginSection">
-            <Label Text="Enter Username" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
-            <Entry x:Name="UsernameEntry" Placeholder="Username" FontSize="18" HorizontalOptions="Center" WidthRequest="200" />
-            <Button Text="Continue" Clicked="LoginButton_Clicked" BackgroundColor="Blue" TextColor="White" Margin="0,10,0,10" HorizontalOptions="Center" WidthRequest="100" />
+        <StackLayout x:Name="LoginSection" Grid.Row="0">
+            <Label Text="Enter Character Name" FontFamily="FantasyFont" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Entry x:Name="UsernameEntry" Placeholder="Username" FontFamily="FantasyFont" FontSize="26" HorizontalTextAlignment="Center" HorizontalOptions="Center" WidthRequest="200" />
+            <Button Text="Continue" FontFamily="FantasyFont" FontSize="26" Clicked="LoginButton_Clicked" BackgroundColor="DarkSlateBlue" TextColor="White" Margin="0,10,0,10" HorizontalOptions="Center" WidthRequest="100" />
         </StackLayout>
 
         <!-- Main App Section -->
+        <ScrollView Grid.Row="1" IsVisible="False" x:Name="MainAppSection">
+            <StackLayout Spacing="20">
 
+                <!-- Dice Selection Area Frame with Border -->
+                <Frame CornerRadius="10" BorderColor="#344e41" HasShadow="False" Padding="10" BackgroundColor="#344e41">
+                    <Frame BorderColor="#344e41" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+                        <StackLayout>
+                            <Label Text="Dice Selection" FontFamily="FantasyFont" FontSize="26" FontAttributes="None"  HorizontalOptions="Center" Margin="0,0,0,10" />
+                            <Label Text="Select Dice Type and Quantity" FontSize="20" FontAttributes="Bold" />
+                            <Picker x:Name="DiceTypePicker" Title="Select Dice Type">
+                                <Picker.Items>
+                                    <x:String>d4</x:String>
+                                    <x:String>d6</x:String>
+                                    <x:String>d8</x:String>
+                                    <x:String>d10</x:String>
+                                    <x:String>d12</x:String>
+                                    <x:String>d20</x:String>
+                                </Picker.Items>
+                            </Picker>
+                            <Entry x:Name="DiceQuantityEntry" Keyboard="Numeric" Placeholder="Quantity" WidthRequest="100" Margin="0,10,0,10"/>
+                            <Button Text="Add Dice" Clicked="AddDiceButton_Clicked" BackgroundColor="#a3b18a" TextColor="White" />
+                            <Label Text="Selected Dice:" FontSize="18" FontAttributes="Bold" Margin="0,20,0,0" />
+                            <CollectionView x:Name="SelectedDiceCollectionView" HeightRequest="140">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding}" FontSize="18" />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                    </Frame>
+                </Frame>
 
-        <StackLayout x:Name="MainAppSection" IsVisible="False">
-            <!-- Dice Selection Area -->
-            <Label Text="Select Dice Type and Quantity" FontSize="20" FontAttributes="Bold" />
-            <Picker x:Name="DiceTypePicker" Title="Select Dice Type">
-                <Picker.Items>
-                    <x:String>d4</x:String>
-                    <x:String>d6</x:String>
-                    <x:String>d8</x:String>
-                    <x:String>d10</x:String>
-                    <x:String>d12</x:String>
-                    <x:String>d20</x:String>
-                </Picker.Items>
-            </Picker>
-            <Entry x:Name="DiceQuantityEntry" Keyboard="Numeric" Placeholder="Quantity" WidthRequest="100" Margin="0,10,0,10"/>
-            <Button Text="Add Dice" Clicked="AddDiceButton_Clicked" BackgroundColor="#2B525F" Margin="0,10,0,10"/>
+                <!-- Modifier and Actions Section Frame with Border -->
+                <Frame CornerRadius="10" BorderColor="#588157" HasShadow="False" Padding="10" BackgroundColor="#588157">
+                    <Frame BorderColor="#588157" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+                        <StackLayout>
+                            <Label Text="Modifier and Actions" FontFamily="FantasyFont" FontSize="26" FontAttributes="None" HorizontalOptions="Center" Margin="0,0,0,10" />
+                            <!--<Label Text="Modifier (optional)" FontSize="18" />-->
+                            <Entry x:Name="ModifierEntry" Keyboard="Numeric" Placeholder="Enter Modifier" WidthRequest="120" Margin="0,10,0,10" />
+                            <Button Text="Roll" Clicked="RollButton_Clicked" BackgroundColor="#3a5a40" TextColor="White" Margin="0,0,0,10" />
+                            <Button Text="Clear Dice" Clicked="ClearDiceButton_Clicked" BackgroundColor="#a3b18a" TextColor="White" />
+                        </StackLayout>
+                    </Frame>
+                </Frame>
 
-            <!-- Selected Dice List -->
-            <Label Text="Selected Dice:" FontSize="18" FontAttributes="Bold" />
-            <CollectionView x:Name="SelectedDiceCollectionView" Margin="0,10,0,10" HeightRequest="100">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Label Text="{Binding}" FontSize="18" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <!-- Modifier Input -->
-            <Label Text="Modifier (optional)" FontSize="18" Margin="0,10,0,10"/>
-            <Entry x:Name="ModifierEntry" Keyboard="Numeric" Placeholder="Enter Modifier" WidthRequest="120" />
-
-            <!-- Roll and Clear Buttons -->
-            <Button Text="Roll" Clicked="RollButton_Clicked" BackgroundColor="#000700" TextColor="White" Margin="0,10,0,10"/>
-            <Button Text="Clear Dice" Clicked="ClearDiceButton_Clicked" BackgroundColor="Red" TextColor="White" Margin="0,10,0,0" />
-
-            <!-- Roll History -->
-            <Label Text="Roll History:" FontSize="18" FontAttributes="Bold" />
-            <CollectionView x:Name="RollHistoryCollectionView" Margin="0,10,0,10" HeightRequest="200">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="Gray" CornerRadius="5" Padding="10" Margin="5">
-                            <StackLayout>
-                                <Label Text="{Binding User}" FontSize="16" FontAttributes="Bold" />
-                                <Label Text="{Binding RollDetails}" FontSize="14" />
-                                <Label Text="{Binding DiceDetails}" FontSize="14" />
-                                <!-- Display dice used -->
-                                <Label Text="{Binding Timestamp}" FontSize="12" TextColor="Gray" />
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
-    </StackLayout>
+                <!-- Roll History Section Frame with Border -->
+                <Frame CornerRadius="10" BorderColor="#dad7cd" HasShadow="False" Padding="13" BackgroundColor="#dad7cd">
+                    <Frame BorderColor="#dad7cd" Padding="10" BackgroundColor="White" CornerRadius="10" HasShadow="False">
+                        <StackLayout>
+                            <Label Text="Roll History" FontFamily="FantasyFont" FontSize="26" FontAttributes="None" HorizontalOptions="Center" Margin="0,0,0,10" />
+                            <CollectionView x:Name="RollHistoryCollectionView" ItemsSource="{Binding RollHistory}" HeightRequest="200">
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Vertical" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame BorderColor="Gray" CornerRadius="5" Padding="10" Margin="5">
+                                            <StackLayout>
+                                                <Label Text="{Binding User}" FontSize="16" FontAttributes="Bold" />
+                                                <Label Text="{Binding RollDetails}" FontSize="14" />
+                                                <Label Text="{Binding Timestamp}" FontSize="12" TextColor="Gray" />
+                                            </StackLayout>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
+                    </Frame>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

@@ -1,23 +1,32 @@
-﻿using Microsoft.Maui.Controls;
+﻿
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Maui.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DnDDiceRoller;
+
 
 namespace DnDDiceRoller
 {
     public partial class MainPage : ContentPage
     {
+        private DiceRoller diceRoller = new DiceRoller();
         private Dictionary<int, int> selectedDice = new Dictionary<int, int>();
         private SignalRService _signalRService;
         private string _username;
-        private List<RollHistoryItem> rollHistory = new List<RollHistoryItem>();
+        private RollHistoryManager _rollHistoryManager;
 
         public MainPage()
         {
             InitializeComponent();
             _signalRService = new SignalRService();
             _signalRService.RollReceived += SignalRService_RollReceived;
+            _rollHistoryManager = new RollHistoryManager();
+
+            // Bind the CollectionView to the RollHistoryManager's RollHistory collection
+            RollHistoryCollectionView.ItemsSource = _rollHistoryManager.RollHistory;
         }
 
         protected override void OnDisappearing()
@@ -28,44 +37,58 @@ namespace DnDDiceRoller
 
         private async void LoginButton_Clicked(object sender, EventArgs e)
         {
-            _username = UsernameEntry.Text?.Trim();
+            //Button animation
+            Button button = (Button)sender;
 
+            await button.ScaleTo(0.9, 10, Easing.CubicOut);
+            await button.ScaleTo(1, 10, Easing.CubicIn);
+            // Get the username from the entry
+            _username = UsernameEntry.Text?.Trim();
+            // Check if the username is valid
             if (string.IsNullOrWhiteSpace(_username))
             {
                 await DisplayAlert("Error", "Please enter a valid username.", "OK");
                 return;
             }
-
+            // Hide the login section and show the main app section
             LoginSection.IsVisible = false;
             MainAppSection.IsVisible = true;
-
+            // Initialize the SignalR service
             try
             {
                 await _signalRService.InitializeAsync("https://dnddicerollerapi20240821154836.azurewebsites.net/rollHub");
             }
+            // Handle any exceptions
             catch (Exception ex)
             {
                 await DisplayAlert("Error", $"Could not connect to server: {ex.Message}", "OK");
             }
         }
 
-        private void AddDiceButton_Clicked(object sender, EventArgs e)
+        private async void AddDiceButton_Clicked(object sender, EventArgs e)
         {
+            //Button animation
+            Button button = (Button)sender;
+
+            await button.ScaleTo(0.9, 50, Easing.CubicOut);
+            await button.ScaleTo(1, 50, Easing.CubicIn);
+            // Get the selected dice type and quantity
             string selectedDiceType = DiceTypePicker.SelectedItem?.ToString();
             if (string.IsNullOrWhiteSpace(selectedDiceType) || string.IsNullOrWhiteSpace(DiceQuantityEntry.Text))
+            // Check if the dice type and quantity are selected
             {
-                DisplayAlert("Error", "Please select a dice type and enter a quantity.", "OK");
+               await DisplayAlert("Error", "Please select a dice type and enter a quantity.", "OK");
                 return;
             }
-
+            
             if (!int.TryParse(DiceQuantityEntry.Text, out int quantity) || quantity <= 0)
-            {
-                DisplayAlert("Error", "Please enter a valid quantity.", "OK");
+            {// Check if the quantity is valid
+                await DisplayAlert("Error", "Please enter a valid quantity.", "OK");// Show an error message
                 return;
             }
-
+            // Extract sides from the dice type string
             int sides = int.Parse(selectedDiceType.Substring(1)); // Extract sides from the dice type string
-
+            // Add the selected dice to the dictionary
             if (selectedDice.ContainsKey(sides))
             {
                 selectedDice[sides] += quantity;
@@ -74,103 +97,114 @@ namespace DnDDiceRoller
             {
                 selectedDice[sides] = quantity;
             }
-
+            // Update the selected dice list
             UpdateSelectedDiceList();
             DiceQuantityEntry.Text = string.Empty;
         }
-
+        // Update the selected dice list
         private void UpdateSelectedDiceList()
         {
             var diceList = selectedDice.Select(d => $"{d.Value}d{d.Key}").ToList();
             SelectedDiceCollectionView.ItemsSource = diceList;
         }
-
+        // Handle the roll button click event
         private async void RollButton_Clicked(object sender, EventArgs e)
         {
-            if (!selectedDice.Any())
-            {
-                await DisplayAlert("Error", "Please add some dice before rolling.", "OK");
-                return;
-            }
+            //Button animation
+            Button button = (Button)sender;
 
-            int modifier = 0;
-            if (!string.IsNullOrWhiteSpace(ModifierEntry.Text))
-            {
-                if (!int.TryParse(ModifierEntry.Text, out modifier))
-                {
-                    await DisplayAlert("Error", "Please enter a valid modifier.", "OK");
-                    return;
-                }
-            }
+            await button.ScaleTo(0.9, 50, Easing.CubicOut);
+            await button.ScaleTo(1, 50, Easing.CubicIn);
 
-            DiceRoller roller = new DiceRoller();
-            List<int> individualRolls = roller.RollMultipleDice(selectedDice);
-            int total = individualRolls.Sum() + modifier;
+            int modifier = int.TryParse(ModifierEntry.Text, out var mod) ? mod : 0;
 
-            // Update local roll history
-            var rollDetails = $"{string.Join(", ", selectedDice.Select(d => $"{d.Value}d{d.Key}"))}";
+            // Roll the dice
+            var (individualRolls, total) = diceRoller.RollMultipleDice(selectedDice, modifier);
+            //int total = individualRolls.Sum()+modifier;
+
+            // Build the roll details string
+            string rollDetails = $"{string.Join(", ", individualRolls)}"; ;
             if (modifier != 0)
-                rollDetails += $" + {modifier}";
+                rollDetails += $" + Modifier({modifier})";
+            rollDetails += $" = {total}";
+            // Add the dice used information
+            string diceDetails = $"Dice Used: {string.Join(", ", selectedDice.Select(d => $"{d.Value}d{d.Key}")) }";
 
+            // Combine the roll results and dice used into RollDetails
+            rollDetails += $"\n{diceDetails}";
+
+            // Create a new RollHistoryItem with the details
             var rollItem = new RollHistoryItem
             {
                 User = _username,
                 Total = total,
                 IndividualRolls = individualRolls,
-                RollDetails = $"{rollDetails} = {total}",
+                RollDetails = rollDetails, // This includes everything
                 Timestamp = DateTime.Now.ToString("g"),
-                DiceUsed = selectedDice // Store the dice used
+                DiceUsed = selectedDice // Still keep this for future use
             };
 
-            rollHistory.Insert(0, rollItem);
-            RollHistoryCollectionView.ItemsSource = null;
-            RollHistoryCollectionView.ItemsSource = rollHistory;
+            // Add the item to the roll history
+            _rollHistoryManager.AddRollHistoryItem(rollItem);
 
-            // Send roll and dice information to other users via SignalR
-            await _signalRService.SendRoll(_username, total, individualRolls, selectedDice);
+            // Scroll to the top of the roll history
+            RollHistoryCollectionView.ScrollTo(0, position: ScrollToPosition.Start, animate: false);
+
+            // Send the roll over SignalR or other communication methods
+            await _signalRService.SendRoll(_username, total, individualRolls, selectedDice, modifier);
         }
-
-        private void ClearDiceButton_Clicked(object sender, EventArgs e)
+        // Handle the clear dice button click event
+        private async void ClearDiceButton_Clicked(object sender, EventArgs e)
         {
+            //Button animation
+            Button button = (Button)sender;
+            await button.ScaleTo(0.9, 50, Easing.CubicOut);
+            await button.ScaleTo(1, 50, Easing.CubicIn);
+
+            // Clear the selected dice and update the list
             selectedDice.Clear();
             UpdateSelectedDiceList();
             ModifierEntry.Text = string.Empty;
         }
-
+       
+        // Handle the roll received event
         private void SignalRService_RollReceived(object sender, RollEventArgs e)
-{
-    if (e.User == _username)
-        return; // Ignore own rolls
+        {   // Check if the roll was sent by the current user
+            if (e.User == _username)
+                return; // Ignore own rolls
+            // Build the roll details string
+            var rollDetails = $"Rolls: {string.Join(", ", e.IndividualRolls)}";
+            if (e.Modifier != 0)
+            rollDetails += $" + Modifier({e.Modifier})";
+            rollDetails += $" = {e.Total}"; // Show the total result
 
-    var rollDetails = $"Rolls: {string.Join(", ", e.IndividualRolls)} = {e.Total}";
-    var diceDetails = $"Dice Used: {string.Join(", ", e.DiceUsed.Select(d => $"{d.Value}d{d.Key}"))}";
+            // Add the dice used information
+            string diceDetails = $"Dice Used: {string.Join(", ", e.DiceUsed.Select(d => $"{d.Value}d{d.Key}"))}";
 
-    var rollItem = new RollHistoryItem
-    {
-        User = e.User,
-        Total = e.Total,
-        IndividualRolls = e.IndividualRolls,
-        RollDetails = rollDetails,
-        Timestamp = DateTime.Now.ToString("g"),
-        DiceUsed = e.DiceUsed  // Assign the DiceUsed property
-    };
+            // Combine the roll results and dice used into RollDetails
+            rollDetails += $"\n{diceDetails}";
+            // Create a new RollHistoryItem with the details
+            var rollItem = new RollHistoryItem
+            {
+                User = e.User,
+                Total = e.Total,
+                IndividualRolls = e.IndividualRolls,
+                RollDetails = rollDetails,
+                Timestamp = DateTime.Now.ToString("g"),
+                DiceUsed = e.DiceUsed  // Assign the DiceUsed property
+            };
+            // Add the item to the roll history
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                _rollHistoryManager.AddRollHistoryItem(rollItem);
+                // Scroll to the top of the roll history
+                RollHistoryCollectionView.ScrollTo(0, position: ScrollToPosition.Start, animate: false);
+                // Show an alert with the new roll details
+                DisplayAlert("New Roll", $"{e.User} rolled:\n{rollDetails}", "OK");
+            });
 
-    Device.BeginInvokeOnMainThread(() =>
-    {
-        rollHistory.Insert(0, rollItem);
-        RollHistoryCollectionView.ItemsSource = null;
-        RollHistoryCollectionView.ItemsSource = rollHistory;
-        DisplayAlert("New Roll", $"{e.User} rolled:\n{rollDetails}\n{diceDetails}", "OK");
-    });
-}
-        public class RollHistoryItem
-        {
-            public string User { get; set; }
-            public int Total { get; set; }
-            public List<int> IndividualRolls { get; set; }
-            public string RollDetails { get; set; }
-            public string Timestamp { get; set; }
-            public Dictionary<int, int> DiceUsed { get; internal set; }
+
         }
+       
     }
 }
