@@ -12,7 +12,7 @@ public class SignalRService
     public async Task InitializeAsync(string hubUrl)
     {
         _connection = new HubConnectionBuilder()
-            .WithUrl("https://dnddicerollerapi20240821154836.azurewebsites.net/rollHub")
+            .WithUrl("https://askforwebsite.com")
             .WithAutomaticReconnect()
             .Build();
 
